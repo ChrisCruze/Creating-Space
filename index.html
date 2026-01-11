@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creating Space</title>
+    <style>
+        :root {
+            --color-bg: #fafafa;
+            --color-bg-alt: #ffffff;
+            --color-text: #1a1a1a;
+            --color-text-light: #6b7280;
+            --color-accent: #2563eb;
+            --color-accent-light: #3b82f6;
+            --color-border: #e5e7eb;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 6rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.7;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-lg) var(--spacing-md);
+        }
+
+        header {
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: var(--spacing-sm);
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--color-text-light);
+            font-weight: 400;
+            max-width: 700px;
+        }
+
+        section {
+            margin-bottom: var(--spacing-xl);
+            padding: var(--spacing-lg);
+            background: var(--color-bg-alt);
+            border-radius: 8px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        section:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: var(--spacing-md);
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-top: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        p {
+            color: var(--color-text-light);
+            margin-bottom: var(--spacing-sm);
+            max-width: 800px;
+        }
+
+        .highlight {
+            color: var(--color-text);
+            font-weight: 500;
+        }
+
+        ul, ol {
+            margin-left: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-text-light);
+        }
+
+        li {
+            margin-bottom: var(--spacing-xs);
+            max-width: 800px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-md);
+        }
+
+        .card {
+            padding: var(--spacing-md);
+            background: var(--color-bg);
+            border-radius: 6px;
+            border: 1px solid var(--color-border);
+            transition: border-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .card:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-2px);
+        }
+
+        .card-title {
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: var(--spacing-xs);
+            font-size: 1.1rem;
+        }
+
+        .card-content {
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+        }
+
+        .accent {
+            color: var(--color-accent);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: var(--spacing-md);
+            max-width: 800px;
+        }
+
+        th, td {
+            padding: var(--spacing-sm);
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        th {
+            font-weight: 600;
+            color: var(--color-text);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            color: var(--color-text-light);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            background: var(--color-bg);
+            color: var(--color-text-light);
+            border: 1px solid var(--color-border);
+        }
+
+        .status-badge.in-progress {
+            background: #fef3c7;
+            color: #92400e;
+            border-color: #fde68a;
+        }
+
+        .status-badge.pending {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .method-list {
+            counter-reset: method-counter;
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .method-list li {
+            counter-increment: method-counter;
+            padding-left: 3rem;
+            position: relative;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .method-list li::before {
+            content: counter(method-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2rem;
+            height: 2rem;
+            background: var(--color-accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: var(--spacing-md) var(--spacing-sm);
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            section {
+                padding: var(--spacing-md);
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .method-list li {
+                padding-left: 2.5rem;
+            }
+
+            .method-list li::before {
+                width: 1.5rem;
+                height: 1.5rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Creating Space</h1>
+            <p class="subtitle">Systematic apartment decluttering toward minimalism using proven frameworks. Transform cluttered living space into a calm, spacious environment that supports minimalist lifestyle and prepares for VanLife transition.</p>
+        </header>
+
+        <section id="brief">
+            <h2>Brief</h2>
+            <p><strong>Problem</strong>: Apartment has accumulated excessive clutter creating physical and mental friction; current state blocks transition to minimalist living and eventual VanLife setup; lack of systematic decluttering approach leads to decision paralysis and ineffective attempts.</p>
+            <p><strong>What I'm Solving</strong>: Systematically reduce apartment contents to essentials using proven minimalist frameworks while maintaining visibility of stored items and tracking progress objectively; build sustainable habits to prevent clutter return.</p>
+        </section>
+
+        <section id="purpose">
+            <h2>Purpose</h2>
+            <p>Reduce apartment clutter by at least 50%, establish a minimalist lifestyle with sustainable maintenance systems, and prepare for eventual VanLife transition. Create a calm, spacious living environment where everything has a designated place and cleaning takes 20 minutes instead of 2 hours.</p>
+        </section>
+
+        <section id="vision">
+            <h2>Vision</h2>
+            <p>Wild success is walking into the apartment and feeling immediate calm because there's space, order, and simplicity. Own only things that are used or truly loved. Everything has a designated place. Cleaning takes 20 minutes instead of 2 hours. Feel liberated rather than weighed down by possessions. Friends visit and comment on how peaceful the space feels. No longer avoid having people over.</p>
+        </section>
+
+        <section id="success-criteria">
+            <h2>Success Criteria</h2>
+            <p>The project is complete when:</p>
+            <ol>
+                <li><strong>Quantifiable Clutter Reduction</strong>: At least 50% reduction in visible clutter measured by before/after photos analyzed by LLM or manual counting. Comprehensive photos from multiple angles taken in January 2026.</li>
+                <li><strong>Storage Items Relocated</strong>: Successfully pack and move at least 10 boxes to sister's place in Hershey. Items catalogued in simple inventory (spreadsheet/app).</li>
+                <li><strong>Van Cleaned and Organized</strong>: Van completely decluttered, cleaned, ready for use or sale. Can take proud "after" photos.</li>
+                <li><strong>Minimalist Criteria Established</strong>: Decision framework created and implemented (Used in last 6 months? Brings genuine joy? Would I buy this again today?)</li>
+                <li><strong>Maintenance System Created</strong>: Simple weekly cleaning routine that maintains minimalist space (15-20 min/day). Successfully executed for 4 consecutive weeks.</li>
+                <li><strong>Physical Space Metrics</strong>: All horizontal surfaces clear except active-use items, all closets/storage at 70% capacity or less, floor space visible and walkable throughout.</li>
+            </ol>
+        </section>
+
+        <section id="method">
+            <h2>Method: KonMari Framework</h2>
+            <p>Following Marie Kondo's method, decluttering proceeds by category (not location) in this order:</p>
+            <ol class="method-list">
+                <li>
+                    <strong>Clothes</strong> (including underwear, outerwear, jewelry, accessories, bags)
+                    <p style="margin-top: 0.5rem; font-size: 0.95rem;">Gather ALL clothes from entire house including out-of-season. Touch each item, ask "Does this spark joy?" Fold vertically in rectangles that stand up.</p>
+                </li>
+                <li>
+                    <strong>Books</strong>
+                    <p style="margin-top: 0.5rem; font-size: 0.95rem;">Assemble all books from entire house. Touch to "wake them up" but don't open. Question: "Will this book help me on my journey ahead?"</p>
+                </li>
+                <li>
+                    <strong>Papers</strong>
+                    <p style="margin-top: 0.5rem; font-size: 0.95rem;">Goal: radical reduction, very little paper should remain. Categorize, then organize by category and alphabetically if keeping.</p>
+                </li>
+                <li>
+                    <strong>Komono (Miscellaneous Items)</strong>
+                    <p style="margin-top: 0.5rem; font-size: 0.95rem;">Everything else except sentimental: kitchen items, bathroom products, cleaning supplies, tools, electronics, home decor, craft supplies. Gather by sub-category, see everything at once.</p>
+                </li>
+                <li>
+                    <strong>Sentimental Items</strong> (last, hardest)
+                    <p style="margin-top: 0.5rem; font-size: 0.95rem;">Photos, mementos, heirlooms. Take photos out of albums, go through one by one. Keep only what truly sparks joy. By this point, decision-making skills are honed.</p>
+                </li>
+            </ol>
+            
+            <h3>Core Principles</h3>
+            <ul>
+                <li>Tidy by category, NOT by location</li>
+                <li>Gather everything from that category from entire home before deciding</li>
+                <li>Hold each item, use physical touch to assess connection</li>
+                <li>Ask "Does this spark joy?" - pay attention to body response</li>
+                <li>Thank items before discarding (gratitude vs. guilt mindset)</li>
+                <li>Discard first completely, THEN organize what remains</li>
+            </ul>
+        </section>
+
+        <section id="key-tasks">
+            <h2>Key Tasks</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-title">Pack Clutter</div>
+                    <div class="card-content">Systematically remove clutter from apartment by packing items for storage with comprehensive inventory tracking. Pack and transport 10+ boxes to sister's storage achieving 30%+ visible clutter reduction.</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Assess Clutter Level</div>
+                    <div class="card-content">Create objective visual baseline of apartment's current clutter state through 8-10 angle photos throughout apartment. Enables before/after comparison and strategic planning.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="stakeholders">
+            <h2>Stakeholders</h2>
+            <ul>
+                <li><strong>Personal (Chris)</strong>: Decision-maker and executor for personal living space transformation</li>
+                <li><strong>Yalitza (Sister)</strong>: Providing storage space in Hershey. Needs organized approach to what's stored.</li>
+                <li><strong>Omar (Brother)</strong>: Providing transportation help for moving boxes. Needs ready items and timing coordination.</li>
+                <li><strong>Future Me</strong>: Needs current discipline to make tough decisions about letting go.</li>
+                <li><strong>Potential Visitors/Guests</strong>: Need clean, comfortable space that feels welcoming.</li>
+            </ul>
+        </section>
+
+        <section id="resources">
+            <h2>Resources</h2>
+            <h3>Time</h3>
+            <ul>
+                <li>20-30 hours upfront</li>
+                <li>2-3 hours weekly for maintenance</li>
+                <li>Daily: 15-20 min maintenance once established</li>
+            </ul>
+            
+            <h3>Knowledge to Acquire</h3>
+            <ul>
+                <li>Minimalism philosophy (Marie Kondo method)</li>
+                <li>Photo analysis with LLM</li>
+                <li>Efficient packing techniques</li>
+                <li>Sentimental item strategies</li>
+            </ul>
+            
+            <h3>Money/Tools</h3>
+            <ul>
+                <li>Boxes/containers ($50-100)</li>
+                <li>Trash bags/cleaning supplies ($30-50)</li>
+                <li>Labeling system ($20-30)</li>
+            </ul>
+            
+            <h3>Physical Resources</h3>
+            <ul>
+                <li>Sister's storage (free)</li>
+                <li>Brother's transportation</li>
+                <li>Van to clean</li>
+            </ul>
+        </section>
+
+        <section id="deliverables">
+            <h2>Deliverables</h2>
+            <ul>
+                <li><strong>Packed Boxes with Inventory</strong>: 10+ labeled boxes with complete inventory spreadsheet tracking contents and location</li>
+                <li><strong>Before/After Photos</strong>: Comprehensive photo documentation from 8-10 angles showing transformation</li>
+                <li><strong>Decision Framework Document</strong>: Minimalist criteria and decision-making process documented</li>
+                <li><strong>Cleaned Van</strong>: Completely decluttered and organized, ready for use or sale</li>
+                <li><strong>Maintenance System</strong>: Weekly cleaning routine and habits established and documented</li>
+                <li><strong>Inventory Spreadsheet</strong>: Simple tracking system for stored items enabling quick lookup</li>
+            </ul>
+        </section>
+
+        <section id="timeline">
+            <h2>Timeline</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Phase</th>
+                        <th>Target Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Photo Baseline</td>
+                        <td>January 5, 2026</td>
+                        <td><span class="status-badge in-progress">In Progress</span></td>
+                    </tr>
+                    <tr>
+                        <td>First Load to Storage</td>
+                        <td>January 15, 2026</td>
+                        <td><span class="status-badge pending">Pending</span></td>
+                    </tr>
+                    <tr>
+                        <td>Major Decluttering Session</td>
+                        <td>Week 2</td>
+                        <td><span class="status-badge pending">Pending</span></td>
+                    </tr>
+                    <tr>
+                        <td>50% Reduction Goal</td>
+                        <td>Week 4</td>
+                        <td><span class="status-badge pending">Pending</span></td>
+                    </tr>
+                    <tr>
+                        <td>Maintenance Routine Established</td>
+                        <td>Week 6</td>
+                        <td><span class="status-badge pending">Pending</span></td>
+                    </tr>
+                    <tr>
+                        <td>Sustained Minimalist Lifestyle</td>
+                        <td>Month 3</td>
+                        <td><span class="status-badge pending">Pending</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="margin-top: var(--spacing-md);"><strong>Current Status</strong>: Photo assessment in progress, several boxes already packed, inventory spreadsheet created, research on minimalist methods completed.</p>
+        </section>
+
+        <section id="manhattan-strategies">
+            <h2>Manhattan-Specific Strategies</h2>
+            <ul>
+                <li>Maximize vertical space with shelves, wall-mounted organizers</li>
+                <li>Multi-functional furniture essential: storage ottomans, under-bed storage</li>
+                <li>"One in, one out" rule: when buying something new, donate/discard one similar item</li>
+                <li>Clear surfaces principle: keep countertops, tables, desks minimal</li>
+                <li>Daily tidying ritual: 5-15 minutes end-of-day reset</li>
+                <li>Designated drop-off zone near entrance</li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>
+

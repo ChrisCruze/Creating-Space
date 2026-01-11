@@ -123,3 +123,37 @@ Create objective visual baseline of apartment's current clutter state through 8-
 ## Repository
 
 GitHub: https://github.com/ChrisCruze/Creating-Space
+
+## Documentation
+
+This repository includes a comprehensive documentation system based on the **Two-System Approach to Sustainable Decluttering**. The framework separates behavior (time) from inventory (space) to create maintainable, stress-proof systems.
+
+### The Two-System Framework
+
+The core insight: **behavior and inventory serve different cognitive purposes**. When combined, they create confusion and overwhelm. When separated, each system stays focused, readable, and scalable.
+
+**System One: Operating System** - Defines *what you do and how often* (behavior, cadence, time)  
+**System Two: Inventory Map** - Defines *what you own and where it lives* (stuff, space, truth)
+
+Together, they create a closed loop: habits prevent clutter, inventory prevents forgetfulness, and decision rules prevent regression.
+
+### Documents
+
+1. **[Two-System-Approach](Documents/Two-System-Approach/Two-System-Approach.md)**
+   - Overview of why splitting systems is essential
+   - Explains the closed loop of sustainable decluttering
+   - Describes how the two systems work together
+
+2. **[Operating-System](Documents/Operating-System/Operating-System.md)**
+   - Behavior, cadence, and time management
+   - Answers five essential questions about daily, weekly, monthly, and long-term maintenance
+   - Includes decision rules and Manhattan apartment-specific examples
+   - Defines maintenance checklists and routines
+
+3. **[Inventory-Map](Documents/Inventory-Map/Inventory-Map.md)**
+   - Physical reality and space mapping
+   - Answers five essential questions about available space, assigned items, unresolved items, and location tracking
+   - Includes inventory table templates and Manhattan apartment-specific examples
+   - Tracks items in apartment and at sister's storage
+
+All documents are cross-referenced using wiki-link notation for easy navigation.
